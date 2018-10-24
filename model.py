@@ -15,7 +15,8 @@ class Model(object):
             self.keep_prob = args.keep_prob
         else:
             self.keep_prob = 1.0
-        self.cell = tf.nn.rnn_cell.BasicLSTMCell
+        #self.cell = tf.nn.rnn_cell.BasicLSTMCell
+        self.cell =  tf.nn.rnn_cell.LSTMCell(name='basic_lstm_cell')
         with tf.variable_scope("decoder/projection"):
             self.projection_layer = tf.layers.Dense(self.vocabulary_size, use_bias=False)
 
