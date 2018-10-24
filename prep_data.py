@@ -11,7 +11,7 @@ parser.add_argument("--glove", action="store_true")
 args = parser.parse_args()
 
 # Extract data file
-with tarfile.open("summary.tar.gz", "r:gz") as tar:
+with tarfile.open("/gdrive/My Drive/Colab Notebooks/data/summary.tar.gz", "r:gz") as tar:
     tar.extractall()
 
 with gzip.open("sumdata/train/train.article.txt.gz", "rb") as gz:
