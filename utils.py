@@ -6,6 +6,8 @@ import numpy as np
 from gensim.models.keyedvectors import KeyedVectors
 from gensim.test.utils import get_tmpfile
 from gensim.scripts.glove2word2vec import glove2word2vec
+from pathlib import Path
+
 
 
 #train_article_path = "sumdata/train/train.article.txt"
@@ -18,7 +20,9 @@ valid_title_path = "/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/skills.txt"
 
 #valid_article_path = "sumdata/train/valid.article.filter.txt"
 #valid_title_path = "sumdata/train/valid.title.filter.txt"
+word_dict_path = "word_dict.pickle"
 
+    
 def clean_str(sentence):
     #sentence = re.sub("[#.]+", "#", sentence)
     sentence = re.sub('" ', "", sentence)
@@ -35,26 +39,35 @@ def get_text_list(data_path, toy):
 
 
 def build_dict(step, toy=False):
+    
+    
+    
+        
     if step == "train":
-        train_article_list = get_text_list(train_article_path, toy)
-        train_title_list = get_text_list(train_title_path, toy)
+        word_dict= Path(word_dict_path)
+        if word_dict.is_file():
+            with open("word_dict.pickle", "rb") as f:
+            word_dict = pickle.load(f)
+        else:
+            train_article_list = get_text_list(train_article_path, toy)
+            train_title_list = get_text_list(train_title_path, toy)
 
-        words = list()
-        for sentence in train_article_list + train_title_list:
-            for word in word_tokenize(sentence):
-                words.append(word)
+            words = list()
+            for sentence in train_article_list + train_title_list:
+                for word in word_tokenize(sentence):
+                    words.append(word)
 
-        word_counter = collections.Counter(words).most_common()
-        word_dict = dict()
-        word_dict["<padding>"] = 0
-        word_dict["<unk>"] = 1
-        word_dict["<s>"] = 2
-        word_dict["</s>"] = 3
-        for word, _ in word_counter:
-            word_dict[word] = len(word_dict)
+            word_counter = collections.Counter(words).most_common()
+            word_dict = dict()
+            word_dict["<padding>"] = 0
+            word_dict["<unk>"] = 1
+            word_dict["<s>"] = 2
+            word_dict["</s>"] = 3
+            for word, _ in word_counter:
+                word_dict[word] = len(word_dict)
 
-        with open("word_dict.pickle", "wb") as f:
-            pickle.dump(word_dict, f)
+            with open("word_dict.pickle", "wb") as f:
+                pickle.dump(word_dict, f)
 
     elif step == "valid":
         with open("word_dict.pickle", "rb") as f:
@@ -62,7 +75,7 @@ def build_dict(step, toy=False):
 
     reversed_dict = dict(zip(word_dict.values(), word_dict.keys()))
 
-    article_max_len = 50
+    article_max_len = 500 #was 50
     summary_max_len = 15
 
     return word_dict, reversed_dict, article_max_len, summary_max_len
