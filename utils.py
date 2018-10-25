@@ -8,14 +8,18 @@ from gensim.test.utils import get_tmpfile
 from gensim.scripts.glove2word2vec import glove2word2vec
 
 
-train_article_path = "sumdata/train/train.article.txt"
-train_title_path = "sumdata/train/train.title.txt"
+#train_article_path = "sumdata/train/train.article.txt"
+train_article_path = '/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/jobDescription.txt'
+#train_title_path = "sumdata/train/train.title.txt"
+train_title_path = '/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/skills.txt'
+
 valid_article_path = "sumdata/train/valid.article.filter.txt"
 valid_title_path = "sumdata/train/valid.title.filter.txt"
 
 
 def clean_str(sentence):
     sentence = re.sub("[#.]+", "#", sentence)
+    sentence = re.sub('"', "", sentence)
     return sentence
 
 
