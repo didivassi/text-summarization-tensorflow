@@ -20,8 +20,9 @@ valid_title_path = "/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/skills.txt"
 #valid_title_path = "sumdata/train/valid.title.filter.txt"
 
 def clean_str(sentence):
-    sentence = re.sub("[#.]+", "#", sentence)
-    sentence = re.sub('"', "", sentence)
+    #sentence = re.sub("[#.]+", "#", sentence)
+    sentence = re.sub('" ', "", sentence)
+    sentence = re.sub(' "', "", sentence)
     return sentence
 
 
