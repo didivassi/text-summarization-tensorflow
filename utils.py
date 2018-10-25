@@ -13,9 +13,11 @@ train_article_path = '/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/jobDescrip
 #train_title_path = "sumdata/train/train.title.txt"
 train_title_path = '/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/skills.txt'
 
-valid_article_path = "sumdata/train/valid.article.filter.txt"
-valid_title_path = "sumdata/train/valid.title.filter.txt"
+valid_article_path = "/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/jobDescription.txt"
+valid_title_path = "/gdrive/My Drive/Colab Notebooks/data/tabelaTxt/skills.txt"
 
+#valid_article_path = "sumdata/train/valid.article.filter.txt"
+#valid_title_path = "sumdata/train/valid.title.filter.txt"
 
 def clean_str(sentence):
     sentence = re.sub("[#.]+", "#", sentence)
